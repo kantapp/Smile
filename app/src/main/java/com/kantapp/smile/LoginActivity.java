@@ -34,6 +34,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.StringRequestListener;
 import com.kantapp.smile.Model.User;
 import com.kantapp.smile.Utils.Key;
 import com.kantapp.smile.Utils.Mobile;
@@ -61,7 +65,7 @@ public class LoginActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        AndroidNetworking.initialize(getApplicationContext());
         userForm=findViewById(R.id.userForm);
         progressBar=findViewById(R.id.progressBar);
         status=findViewById(R.id.status);
@@ -106,94 +110,90 @@ public class LoginActivity extends AppCompatActivity
         }
         else
         {
+//            params.put("email",email);
+//            params.put("password",password);
+
             userForm.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
-            StringRequest stringRequest=new StringRequest(Request.Method.POST, URL.LOGIN, new Response.Listener<String>() {
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onResponse(String response) {
-                    Log.d(TAG, "onResponse: "+response);
-                    try
-                    {
-                        final JSONObject jsonObjectRoot=new JSONObject(response);
-                        boolean login=jsonObjectRoot.getBoolean("error");
-                        String message=jsonObjectRoot.getString("message");
-                        if (!login)
-                        {
-                            status.setVisibility(View.VISIBLE);
-                            status.setBackgroundResource(R.drawable.success);
-                            status.setBackgroundTintList(ContextCompat.getColorStateList(LoginActivity.this, R.color.colorPrimary));
-                            progressBar.setVisibility(View.GONE);
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    status.setVisibility(View.GONE);
-                                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                    try
-                                    {
-                                        User user=new User();
-                                        JSONObject jsonObject=jsonObjectRoot.getJSONObject("userData");
-                                        user.setId(jsonObject.getInt(User.ID));
-                                        user.setEmail(jsonObject.getString(User.EMAIL));
-                                        user.setFullname(jsonObject.getString(User.FULLNAME));
-                                        user.setProfile(jsonObject.getString(User.PROFILE));
-                                        user.setGender(jsonObject.getString(User.GENDER));
-                                        user.setToken(jsonObject.getString(User.TOKEN));
-                                        Log.d(TAG, "run: "+user);
-                                        SP.saveUserdetails(LoginActivity.this,user);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    finish();
-                                }
-                            },1000);
-                        }
-                        else
-                        {
-                            Toast.makeText(LoginActivity.this, ""+message, Toast.LENGTH_SHORT).show();
-
-                            status.setVisibility(View.VISIBLE);
-                            status.setBackgroundResource(R.drawable.failed);
-                            status.setBackgroundTintList(ContextCompat.getColorStateList(LoginActivity.this, R.color.RED));
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    userForm.setVisibility(View.VISIBLE);
+            AndroidNetworking.post(URL.LOGIN)
+                    .addBodyParameter("email",email)
+                    .addBodyParameter("password",password)
+                    .setPriority(Priority.HIGH)
+                    .build()
+                    .getAsString(new StringRequestListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d(TAG, "onResponse: "+response);
+                            try
+                            {
+                                final JSONObject jsonObjectRoot=new JSONObject(response);
+                                boolean login=jsonObjectRoot.getBoolean("error");
+                                String message=jsonObjectRoot.getString("message");
+                                if (!login)
+                                {
+                                    status.setVisibility(View.VISIBLE);
+                                    status.setBackgroundResource(R.drawable.success);
+                                    status.setBackgroundTintList(ContextCompat.getColorStateList(LoginActivity.this, R.color.colorPrimary));
                                     progressBar.setVisibility(View.GONE);
-                                    status.setVisibility(View.GONE);
-                                    editemail.setError(getString(R.string.error_invalid_email));
-                                    editpassword.setError(getString(R.string.error_incorrect_password));
-                                    editpassword.requestFocus();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            status.setVisibility(View.GONE);
+                                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                            try
+                                            {
+                                                User user=new User();
+                                                JSONObject jsonObject=jsonObjectRoot.getJSONObject("userData");
+                                                user.setId(jsonObject.getInt(User.ID));
+                                                user.setEmail(jsonObject.getString(User.EMAIL));
+                                                user.setFullname(jsonObject.getString(User.FULLNAME));
+                                                user.setProfile(jsonObject.getString(User.PROFILE));
+                                                user.setGender(jsonObject.getString(User.GENDER));
+                                                user.setToken(jsonObject.getString(User.TOKEN));
+                                                Log.d(TAG, "run: "+user);
+                                                SP.saveUserdetails(LoginActivity.this,user);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            finish();
+                                        }
+                                    },1000);
                                 }
-                            },500);
-                        }
-                    } catch (JSONException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d(TAG, "onErrorResponse: "+error.getMessage());
-                    userForm.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
-                }
-            })
-            {
-                @Override
-                protected Map<String, String> getParams()
-                {
-                    Map<String,String> params=new HashMap<String, String>();
-                    params.put("email",email);
-                    params.put("password",password);
-                    return params;
-                }
-            };
+                                else
+                                {
+                                    Toast.makeText(LoginActivity.this, ""+message, Toast.LENGTH_SHORT).show();
 
-            stringRequest.setShouldCache(false);
-            RequestQueue requestQueue= Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
+                                    status.setVisibility(View.VISIBLE);
+                                    status.setBackgroundResource(R.drawable.failed);
+                                    status.setBackgroundTintList(ContextCompat.getColorStateList(LoginActivity.this, R.color.RED));
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            userForm.setVisibility(View.VISIBLE);
+                                            progressBar.setVisibility(View.GONE);
+                                            status.setVisibility(View.GONE);
+                                            editemail.setError(getString(R.string.error_invalid_email));
+                                            editpassword.setError(getString(R.string.error_incorrect_password));
+                                            editpassword.requestFocus();
+                                        }
+                                    },500);
+                                }
+                            } catch (JSONException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(ANError error) {
+                            Log.d(TAG, "onErrorResponse: "+error.getMessage());
+                            error.printStackTrace();
+                            userForm.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+
         }
 
 

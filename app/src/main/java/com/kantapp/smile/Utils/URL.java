@@ -5,7 +5,7 @@ package com.kantapp.smile.Utils;
  */
 public class URL
 {
-    private static final String ROOT="https://kantapp.com/Zeist/BillionSmile/public/";
+    private static final String ROOT="http://kantapp.com/Zeist/BillionSmile/public/";
     public static final String LOGIN=ROOT+"login";
     public static final String REGISTER=ROOT+"register";
 }
