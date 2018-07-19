@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -30,7 +31,7 @@ public class FirstScreen extends Activity
             @Override
             public void onClick(View v) {
                 smileClick++;
-                if (smileClick==5)
+                if (smileClick==3)
                 {
                     Glide.with(FirstScreen.this)
                             .load(R.drawable.testy_red)
@@ -51,5 +52,21 @@ public class FirstScreen extends Activity
             }
         });
 
+
+        Button loginBtn=findViewById(R.id.loginBtn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            }
+        });
+
+        Button signUpBtn=findViewById(R.id.signUpBtn);
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
+            }
+        });
     }
 }

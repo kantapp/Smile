@@ -8,4 +8,5 @@
     <color name="textNormal">#787777</color>
     <color name="cardBackground">#FFFFFF</color>
     <color name="White">#ffffff</color>
+    <color name="RED">#ff0000</color>
 </resources>
