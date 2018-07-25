@@ -5,6 +5,8 @@ package com.kantapp.smile.Utils;
  */
 public class Key
 {
+    public static final String FULLNAME="fullname";
     public static final String EMAIL="email";
     public static final String PASSWORD="password";
+    public static final String GENDER="gender";
 }

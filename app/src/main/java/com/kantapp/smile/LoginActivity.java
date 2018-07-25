@@ -91,15 +91,20 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-
+        findViewById(R.id.forgotPassword).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ForgotPasswordActivity.class));
+            }
+        });
     }
 
     private void attemptLogin() {
         editemail.setError(null);
         editpassword.setError(null);
 
-        final String email=editemail.getText().toString().trim();
-        final String password=editpassword.getText().toString().trim();
+        final String email=editemail.getText().toString().trim().toLowerCase();
+        final String password=editpassword.getText().toString().trim().toLowerCase();
         if(!Validation.isEmailValid(email))
         {
             editemail.setError(getString(R.string.error_field_required));
@@ -158,7 +163,7 @@ public class LoginActivity extends AppCompatActivity
                                             }
                                             finish();
                                         }
-                                    },1000);
+                                    },700);
                                 }
                                 else
                                 {

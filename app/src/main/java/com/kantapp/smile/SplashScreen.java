@@ -21,5 +21,7 @@ public class SplashScreen extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),FirstScreen.class));
             finish();
         }
+
+        //startActivity(new Intent(getApplicationContext(),ForgotPasswordActivity.class));
     }
 }

@@ -21,4 +21,13 @@ public class Validation {
             return false;
         return pat.matcher(email).matches();
     }
+
+    public static boolean isValidName(String name)
+    {
+        String regx = "^[\\p{L} .'-]+$";
+        Pattern pattern=Pattern.compile(regx);
+        if (name==null)
+            return false;
+        return pattern.matcher(name).matches();
+    }
 }

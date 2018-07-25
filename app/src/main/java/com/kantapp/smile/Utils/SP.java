@@ -43,4 +43,11 @@ public class SP
         user.setToken(sharedPreferences.getString(User.TOKEN,null));
         return user;
     }
+
+    public static void logout(Activity activity)
+    {
+        sharedPreferences=activity.getSharedPreferences(LOGIN_TABLE,Context.MODE_PRIVATE);
+        editor=sharedPreferences.edit();
+        editor.clear().apply();
+    }
 }
