@@ -3,10 +3,8 @@
     package="com.kantapp.smile">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -15,23 +13,23 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".FirstScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.fullScreen">
-
-        </activity>
+            android:theme="@style/AppTheme.fullScreen" />
         <activity
             android:name=".SignUpActivity"
             android:label="SIGN UP" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:label="FORGOT PASSWORD" />
-        <activity android:name=".SplashScreen"
+        <activity
+            android:name=".SplashScreen"
             android:theme="@style/AppTheme.fullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +37,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.ProfilePicChange" />
+        <activity android:name=".Activity.NameChangeActivity" />
+        <activity android:name=".Activity.PasswordChangeActivity"></activity>
     </application>
 
 </manifest>

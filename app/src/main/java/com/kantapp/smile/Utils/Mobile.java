@@ -1,6 +1,8 @@
 package com.kantapp.smile.Utils;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.util.Base64;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import com.androidnetworking.interfaces.StringRequestListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 /**
@@ -31,6 +34,13 @@ public class Mobile
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
 
+    public static String bitmap2base64(Bitmap bitmap)
+    {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
 
 
 
