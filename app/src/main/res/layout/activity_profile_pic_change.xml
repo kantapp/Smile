@@ -24,12 +24,6 @@
             android:background="@drawable/dottedbackground"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/imageLogo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_image_black_24dp"
-                android:visibility="gone" />
 
             <com.takusemba.cropme.CropView
                 android:layout_width="match_parent"

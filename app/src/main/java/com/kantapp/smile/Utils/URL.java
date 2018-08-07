@@ -9,4 +9,6 @@ public class URL
     public static final String LOGIN=ROOT+"login";
     public static final String REGISTER=ROOT+"register";
     public static final String RESETPASS=ROOT+"email/";
+    public static final String USER_DETAILS=ROOT+"token/";
+    public static final String PROFILE_UPDATE=ROOT+"profileUpdate/";
 }
