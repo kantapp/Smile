@@ -20,6 +20,8 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
 import com.kantapp.smile.Activity.NameChangeActivity;
 import com.kantapp.smile.Activity.PasswordChangeActivity;
@@ -96,9 +98,11 @@ public class ProfileFragment extends Fragment {
                             String imageURL=response.getString("profile");
                             GlideApp.with(getActivity()).load(imageURL)
                                     .skipMemoryCache(true)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                                     .apply(RequestOptions.circleCropTransform())
                                     .thumbnail(Glide.with(getActivity()).load(R.drawable.loading).apply(RequestOptions.centerCropTransform()))
                                     .into(profile_pics);
+
                             Log.d(TAG, "onResponse: "+imageURL);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -112,10 +116,9 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        getImage();
-//        Toast.makeText(getActivity(), "onResume", Toast.LENGTH_SHORT).show();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getImage();
+    }
 }
