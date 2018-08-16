@@ -33,5 +33,5 @@ dependencies {
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'com.github.RupinSahu:CardDrawer:-SNAPSHOT'
     compile 'com.github.takusemba:cropme:1.0.6'
-    compile "com.android.support:support-dynamic-animation:27.1.1"
+    compile 'com.android.support:support-dynamic-animation:27.1.1'
 }

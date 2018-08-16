@@ -11,4 +11,6 @@ public class URL
     public static final String RESETPASS=ROOT+"email/";
     public static final String USER_DETAILS=ROOT+"token/";
     public static final String PROFILE_UPDATE=ROOT+"profileUpdate/";
+    public static final String NAME_UPDATE=ROOT+"updateName";
+    public static final String PASSWORD_UPDATE=ROOT+"mobilePasswordChange";
 }

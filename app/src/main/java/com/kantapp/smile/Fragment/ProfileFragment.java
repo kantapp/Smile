@@ -3,6 +3,7 @@ package com.kantapp.smile.Fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -35,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URI;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +46,7 @@ public class ProfileFragment extends Fragment {
 
 
     private ImageView profile_pics;
+    private TextView profile_name;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -55,6 +59,8 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         profile_pics=view.findViewById(R.id.profile_pics);
+        profile_name=view.findViewById(R.id.profile_name);
+
 
         getImage();
 
@@ -120,5 +126,8 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getImage();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            profile_name.setText(SP.getData(Objects.requireNonNull(getActivity())).getFullname());
+        }
     }
 }

@@ -176,13 +176,14 @@ public class ProfilePicChange extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //convert drawable to bitmap
-    private Bitmap getDrawable2Bitmap(int image) {
-        return BitmapFactory.decodeResource(getResources(), image);
-    }
+
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+    //convert drawable to bitmap
+    private Bitmap getDrawable2Bitmap(int image) {
+        return BitmapFactory.decodeResource(getResources(), image);
     }
 }

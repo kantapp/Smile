@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setRadius(Gravity.START, 35);
         drawer.setViewElevation(Gravity.START, 20);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.layoutFragment,new ProfileFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layoutFragment,new HomeFragment()).commit();
         }
 
 
