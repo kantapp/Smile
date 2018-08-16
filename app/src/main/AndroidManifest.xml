@@ -4,7 +4,7 @@
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -39,7 +39,8 @@
         </activity>
         <activity android:name=".Activity.ProfilePicChange" />
         <activity android:name=".Activity.NameChangeActivity" />
-        <activity android:name=".Activity.PasswordChangeActivity"></activity>
+        <activity android:name=".Activity.PasswordChangeActivity" />
+        <activity android:name=".Activity.NewStoryActivity"></activity>
     </application>
 
 </manifest>
